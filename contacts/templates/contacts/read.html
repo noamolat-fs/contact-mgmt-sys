@@ -1,0 +1,26 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'contacts/styles/style.css' %}">
+<a href="{% url 'contacts:index' %}">Back</a>
+<h1>View Contact</h1>
+<div>
+    <label for="name">Name</label><br>
+    <input type="text" name="name" id="name" value="{{ contact.name }}" disabled>
+</div>
+<div>
+    <label for="address">Address</label><br>
+    <input type="text" name="address" id="address" value="{{ contact.address }}" disabled>
+</div>
+<div>
+    <label for="email">Email</label><br>
+    <input type="email" name="email" id="email" value="{{ contact.email }}" disabled>
+</div>
+<div>
+    <label for="mobile">Mobile</label><br>
+    <input type="text" name="mobile" id="mobile" value="+{{ contact.mobile }}" disabled>
+</div>
+<br>
+<button onClick="window.location.href='{% url 'contacts:update' contact.id %}';">Update</button>
+<form class="hidden" action="{% url 'contacts:delete' contact.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+</form>

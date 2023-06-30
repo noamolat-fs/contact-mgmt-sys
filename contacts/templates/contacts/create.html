@@ -1,0 +1,25 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'contacts/styles/style.css' %}">
+<a href="{% url 'contacts:index' %}">Back</a>
+<h1>Create Contact</h1>
+<form action="{% url 'contacts:create' %}" method="post">
+    {% csrf_token %}
+    <div>
+        <label for="name">Name</label><br>
+        <input type="text" name="name" id="name">
+    </div>
+    <div>
+        <label for="address">Address</label><br>
+        <input type="text" name="address" id="address">
+    </div>
+    <div>
+        <label for="email">Email</label><br>
+        <input type="email" name="email" id="email">
+    </div>
+    <div>
+        <label for="mobile">Mobile</label><br>
+        +<input type="text" name="mobile" id="mobile">
+    </div>
+    <br>
+    <input type="submit" value="Submit">
+</form>

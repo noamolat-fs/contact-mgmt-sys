@@ -1,0 +1,52 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'contacts/styles/style.css' %}">
+<table>
+    <thead>
+        <tr>
+            <th colspan="6">
+                <h1>Contacts</h1>
+            </th>
+        </tr>
+        <tr>
+            <th colspan="6">
+                <form class="hidden" action="{% url 'contacts:index' %}" method="get">
+                    <input type="text" name="query" value="{{ query|default_if_none:'' }}">
+                    <input type="submit" value="Search">
+                </form>
+            </th>
+        </tr>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td><a href="{% url 'contacts:read' contact.id %}">{{ forloop.counter }}</a></td>
+                <td><a href="{% url 'contacts:read' contact.id %}">{{ contact.name }}</a></td>
+                <td><a href="{% url 'contacts:read' contact.id %}">{{ contact.address }}</a></td>
+                <td><a href="{% url 'contacts:read' contact.id %}">{{ contact.email }}</a></td>
+                <td><a href="{% url 'contacts:read' contact.id %}">+{{ contact.mobile }}</a></td>
+                <td>
+                    <button onClick="window.location.href='{% url 'contacts:update' contact.id %}';">Update</button>
+                    <form class="hidden" action="{% url 'contacts:delete' contact.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="6">
+                <button onClick="window.location.href='{% url 'contacts:create' %}';">Create</button>
+            </th>
+        </tr>
+    </tfoot>
+</table>
